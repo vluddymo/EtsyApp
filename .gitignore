@@ -1,0 +1,69 @@
+# 🚀 General Exclusions
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.env
+*.swp
+
+# 🚀 Node.js & Frontend (React + Electron)
+frontend/node_modules/
+frontend/.npm/
+frontend/.cache/
+frontend/dist/
+frontend/.env
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/.vite/
+
+# 🚀 Electron-Specific
+frontend/out/
+frontend/build/
+frontend/electron-builder.yml
+frontend/electron/dist/
+
+# 🚀 Java & Backend (Spring Boot + Maven)
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/logs/
+backend/.env
+backend/application.properties
+
+# 🚀 IntelliJ & Editor-Specific Files
+.idea/
+.vscode/
+*.iml
+
+# 🚀 System Files
+*.bak
+*.old
+*.pid
+*.seed
+*.pid.lock
+*.swo
+*.swp
+
+# 🚀 Build & Deployment Artifacts
+/dist/
+bin/
+build/
+coverage/
+out/
+docs/
+
+# 🚀 MacOS System Files
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+
+# 🚀 Logs & Debug Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🚀 Docker (if used)
+docker-compose.override.yml
+backend/.dockerignore
