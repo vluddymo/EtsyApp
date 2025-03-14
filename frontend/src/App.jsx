@@ -1,22 +1,14 @@
-import { useState } from "react";
-import axios from "axios";
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Listings from "./pages/Listings";
 import CreateListing from "./pages/CreateListing";
+import Navbar from "./components/Navbar";
 
 function App() {
     return (
         <Router>
-            <nav>
-                <ul>
-                    <li><Link to="/">Dashboard</Link></li>
-                    <li><Link to="/listings">Listings</Link></li>
-                    <li><Link to="/create">Create Listing</Link></li>
-                </ul>
-            </nav>
+           <Navbar/>
 
             <Routes>
                 <Route path="/" element={<Dashboard />} />

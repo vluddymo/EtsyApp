@@ -2,7 +2,9 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
+    "@tailwindcss/vite": "^4.0.14",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
@@ -11,16 +13,17 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0",
+    "tailwindcss": "^4.0.14",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "electron": "electron electron.js",
+    "dev": "cross-env NODE_ENV=development vite",
+    "electron": "cross-env NODE_ENV=development electron electron.cjs",
     "start": "concurrently \"npm run dev\" \"npm run electron\"",
-    "build:electron": "vite build && electron electron.js"
+    "build": "vite build",
+    "build:electron": "cross-env NODE_ENV=production vite build && electron electron.cjs"
   },
-  "main": "electron.js",
+  "main": "electron.cjs",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -40,9 +43,12 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.14",
     "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.21",
     "concurrently": "^7.0.0",
     "electron": "^35.0.1",
+    "postcss": "^8.5.3",
     "vite": "^6.2.1"
   }
 }
