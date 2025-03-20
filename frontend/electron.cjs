@@ -11,7 +11,7 @@ app.whenReady().then(() => {
             nodeIntegration: false,  // Prevents executing Node.js in renderer
             contextIsolation: true,  // Security best practice
             enableRemoteModule: false,  // Disables outdated remote module
-            devTools: process.env.NODE_ENV === "development"
+            devTools: process.env.NODE_ENV === "development",
         }
     });
 
@@ -25,10 +25,10 @@ app.whenReady().then(() => {
     }
 
     const CSP_POLICY = isDev
-        ? "default-src 'self' http://localhost:3000; " +
+        ? "default-src 'self' http://localhost:3000 http://localhost:8080; " +
         "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
         "style-src 'self' 'unsafe-inline'; " +
-        "img-src 'self' data:; " +
+        "img-src 'self' data: http://localhost:8080; " +
         "connect-src 'self' http://localhost:8080 ws://localhost:3000;"
         : "default-src 'self'; " +
         "script-src 'self'; " +

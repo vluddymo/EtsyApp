@@ -1,4 +1,4 @@
-package com.etsyautomation.controllers;
+package com.etsyautomation.controller;
 
 import com.etsyautomation.services.EtsyService;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +7,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/etsy")
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend access
 public class EtsyController {
 
     private final EtsyService etsyService;

@@ -5,13 +5,13 @@ const Listings = () => {
     const [listings, setListings] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/etsy/listings")
+        axios.get(encodeURIComponent("http://localhost:8080/api/etsy/listings"))
             .then(response => setListings(response.data))
             .catch(error => console.error("Error fetching listings:", error));
     }, []);
 
     return (
-        <div>
+        <div className="bg-secondary">
             <h1>Etsy Listings</h1>
             <ul>
                 {listings.map((listing, index) => (

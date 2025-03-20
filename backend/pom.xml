@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <!-- Spring Boot Parent: Manages dependency versions automatically -->
@@ -21,10 +19,17 @@
   </properties>
 
   <dependencies>
+
     <!-- Spring Boot Web (REST API) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <version>3.4.2</version>
     </dependency>
 
     <!-- Spring Boot DevTools (Live Reload) -->
@@ -61,6 +66,35 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <!-- Thumbnailator for fast resizing & formatting -->
+    <dependency>
+      <groupId>net.coobird</groupId>
+      <artifactId>thumbnailator</artifactId>
+      <version>0.4.14</version>
+    </dependency>
+
+    <!-- OpenCV Wrapper for Java (for cropping) -->
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacv</artifactId>
+      <version>1.5.7</version>
+    </dependency>
+
+    <!-- File Upload Support -->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>opencv</artifactId>
+      <version>4.5.5-1.5.7</version>
+      <classifier>macosx-arm64</classifier>  <!-- Ensures macOS native binaries -->
+    </dependency>
+
   </dependencies>
 
   <build>
