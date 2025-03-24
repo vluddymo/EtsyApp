@@ -1,0 +1,42 @@
+package com.etsyautomation.controller;
+
+import com.etsyautomation.services.GoogleDriveService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
+@RestController
+@RequestMapping("/api/images")
+@CrossOrigin(origins = "http://localhost:3000")
+public class ImageUploadController {
+
+    private static final String TEMP_UPLOAD_PATH = System.getProperty("java.io.tmpdir") + "/etsy-upload/";
+    private final GoogleDriveService googleDriveService;
+
+    public ImageUploadController(GoogleDriveService googleDriveService) {
+        this.googleDriveService = googleDriveService;
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadImage(@RequestParam("files") MultipartFile file) {
+        try {
+            File uploadDir = new File(TEMP_UPLOAD_PATH);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            File tempFile = new File(TEMP_UPLOAD_PATH + file.getOriginalFilename());
+            file.transferTo(tempFile);
+            googleDriveService.uploadFile(tempFile);
+
+            return ResponseEntity.ok("✅ Uploaded " + file.getOriginalFilename());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("❌ Upload failed: " + e.getMessage());
+        }
+    }
+}

@@ -21,16 +21,16 @@ const Dashboard = () => {
             {/* Tab Navigation */}
             <div className="mt-5 flex border-b">
                 <button
-                    className={`px-4 py-2 ${activeTab === "stats" ? "border-b-2 border-blue-500 font-semibold" : "text-gray-500"}`}
+                    className={`px-4 py-2 ${activeTab === "stats" ? "bg-blue-500  text-white rounded-t-xl font-semibold" : "text-gray-500"}`}
                     onClick={() => setActiveTab("stats")}
                 >
-                    Etsy Stats 📈
+                    Etsy Stats
                 </button>
                 <button
-                    className={`px-4 py-2 ml-4 ${activeTab === "images" ? "border-b-2 border-blue-500 font-semibold" : "text-gray-500"}`}
+                    className={`px-4 py-2 ml-4 ${activeTab === "images" ? "bg-blue-500  text-white rounded-t-xl font-semibold" : "text-gray-500"}`}
                     onClick={() => setActiveTab("images")}
                 >
-                    Image Processing 🖼
+                    Image Processing
                 </button>
             </div>
 

@@ -72,7 +72,7 @@ public class ImageProcessingController {
         List<Map<String, String>> imageList = new ArrayList<>();
 
         for (File subfolder : Objects.requireNonNull(outputDir.listFiles(File::isDirectory))) {
-            for (File image : Objects.requireNonNull(subfolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png")))) {
+            for (File image : Objects.requireNonNull(subfolder.listFiles((dir, name) -> name.toLowerCase().endsWith("preview.jpeg") ))) {
                 imageList.add(Map.of(
                         "filename", image.getName(),
                         "path", "/api/images/file/" + subfolder.getName() + "/" + image.getName() // API-URL zum Abrufen der Datei
