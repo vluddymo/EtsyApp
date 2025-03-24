@@ -1,11 +1,11 @@
 #  Etsy Automation App
 
-###  **Automate Your Etsy Shop – From Design to Listing**
+###  Automate Your Etsy Shop – From Design to Listing
 A desktop application built with **Electron + React (Frontend) and Spring Boot (Backend)** to streamline **Etsy shop management**, including **AI-powered design processing, mockup generation, and automated listings**.
 
 ---
 
-## ** Features**
+## Features
 ✅ **Etsy API Integration** – Auto-create & update listings  
 ✅ **Automated Image Processing** – Resize, format, and organize poster designs  
 ✅ **Google Drive Support** – Store and manage design files in the cloud  
@@ -17,22 +17,22 @@ A desktop application built with **Electron + React (Frontend) and Spring Boot (
 
 ---
 
-## ** Installation & Setup**
+## Installation & Setup**
 
-### **🔹 1. Prerequisites**
+### 🔹 1. Prerequisites**
 - **Node.js** (v18+) → [Download](https://nodejs.org/)
 - **Java JDK 17+** → [Download](https://www.oracle.com/java/technologies/javase-downloads.html)
 - **Maven** (for backend) → [Install Guide](https://maven.apache.org/download.cgi)
 
 ---
 
-### **🔹 2. Clone the Repository**
+### 🔹 2. Clone the Repository
 ```
 git clone https://github.com/yourusername/etsy-automation-app.git
 cd etsy-app
 ```
 
-### **🔹 3. Setup the Backend (Spring Boot)**
+### 🔹 3. Setup the Backend (Spring Boot)
 ```
 cd backend
 mvn clean install
@@ -40,7 +40,7 @@ mvn spring-boot:run
 ```
 📌 The backend will start on http://localhost:8080.
 
-### **🔹 4. Setup the Frontend (React + Electron)**
+### 🔹 4. Setup the Frontend (React + Electron)
 ```
 cd frontend
 npm install
@@ -49,7 +49,7 @@ npm run start
  Electron will open, loading Vite’s frontend.
 
 
-## ** Configuration**
+## Configuration
 1️⃣ Backend Environment Variables (backend/src/main/resources/application.properties)
 ```
 etsy.api.key=YOUR_ETSY_API_KEY
@@ -63,7 +63,7 @@ VITE_API_BASE_URL=http://localhost:8080
 VITE_ETSY_SHOP_ID=YOUR_SHOP_ID
 ```
 
-## ** Usage**
+## Usage
 
 1️⃣ Launch Electron App <br>
 2️⃣ Upload Design Files → Choose images to process<br>
@@ -73,7 +73,7 @@ VITE_ETSY_SHOP_ID=YOUR_SHOP_ID
 6️⃣ Track Sales & Analytics → View dashboard stats<br>
 
 
-## ** Deployment**
+## Deployment
 1. Build Electron App for macOS
 ```
 cd frontend
@@ -90,8 +90,8 @@ mvn clean package
 java -jar target/backend-1.0.0.jar
 ```
 
-## ** API Reference**
-### **Backend APIs**
+## API Reference
+### Backend APIs
 | **Endpoint**               | **Method** | **Description**                               |
 |----------------------------|-----------|-----------------------------------------------|
 | `/api/images/process`      | `POST`    | Upload and process design images            |
@@ -99,7 +99,7 @@ java -jar target/backend-1.0.0.jar
 | `/api/etsy/create`         | `POST`    | Auto-create Etsy listings                   |
 | `/api/stats/sales`         | `GET`     | Fetch Etsy sales data                       |
 
-### **Frontend API Calls (React)**
+### Frontend API Calls (React)
 Example of making an API call in React:
 ```javascript
 import axios from "axios";
@@ -111,9 +111,9 @@ const uploadImage = async (filePath) => {
     return response.data;
 };
 ```
-## ** Troubleshooting**
+## Troubleshooting
 
-### **Frontend Issues**
+### Frontend Issues
 🔹 **Electron App is Blank**  
 **Fix:** Open Electron DevTools (`Cmd + Alt + I` on macOS or `Ctrl + Shift + I` on Windows/Linux) and check the console logs.
 
