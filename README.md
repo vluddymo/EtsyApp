@@ -38,7 +38,7 @@ cd backend
 mvn clean install
 mvn spring-boot:run
 ```
-📌 The backend will start on http://localhost:8080.
+The backend will start on http://localhost:8080.
 
 ### 🔹 4. Setup the Frontend (React + Electron)
 ```
@@ -114,7 +114,7 @@ const uploadImage = async (filePath) => {
 ## Troubleshooting
 
 ### Frontend Issues
-🔹 **Electron App is Blank**  
+🔹 Electron App is Blank
 **Fix:** Open Electron DevTools (`Cmd + Alt + I` on macOS or `Ctrl + Shift + I` on Windows/Linux) and check the console logs.
 
 🔹 **Vite Dev Server Not Found**  
@@ -149,7 +149,7 @@ mvn spring-boot:run
 
 ### General Fixes
 
-✅ **Restart Everything:** <br>
+**Restart Everything:** <br>
 If issues persist, restart all services:
 ```
 Ctrl + C  # Stop running processes
@@ -157,17 +157,17 @@ npm run dev
 npm run electron
 ```
 
-✅ **Check Logs:** <br>
+**Check Logs:** <br>
 •	Frontend: Open DevTools (Cmd + Alt + I)
 •	Backend: Check logs in the terminal (mvn spring-boot:run output)
 
-✅ **Reinstall Dependencies:** <br>
+**Reinstall Dependencies:** <br>
 If errors persist, try reinstalling everything
 ```
 rm -rf node_modules package-lock.json
 npm install
 ```
-Now your Etsy Automation App should work smoothly! 🔥
+Now your Etsy Automation App should work smoothly! 
 
 ##  Technologies Used
 	•	🖥️ Frontend: React, Electron, Vite
@@ -187,4 +187,4 @@ Now your Etsy Automation App should work smoothly! 🔥
 ✅ **Includes deployment instructions for Electron & Spring Boot.**  
 ✅ **Developer-friendly structure for easy onboarding.**  
 
-**Would you like a guide on packaging your Electron app into a `.dmg` file for macOS?** Let me know! 😃🔥
+**Would you like a guide on packaging your Electron app into a `.dmg` file for macOS?** Let me know!
