@@ -1,11 +1,11 @@
-# 🛒 Etsy Automation App
+#  Etsy Automation App
 
-### 🚀 **Automate Your Etsy Shop – From Design to Listing**
+###  **Automate Your Etsy Shop – From Design to Listing**
 A desktop application built with **Electron + React (Frontend) and Spring Boot (Backend)** to streamline **Etsy shop management**, including **AI-powered design processing, mockup generation, and automated listings**.
 
 ---
 
-## **📌 Features**
+## ** Features**
 ✅ **Etsy API Integration** – Auto-create & update listings  
 ✅ **Automated Image Processing** – Resize, format, and organize poster designs  
 ✅ **Google Drive Support** – Store and manage design files in the cloud  
@@ -17,7 +17,7 @@ A desktop application built with **Electron + React (Frontend) and Spring Boot (
 
 ---
 
-## **🛠️ Installation & Setup**
+## ** Installation & Setup**
 
 ### **🔹 1. Prerequisites**
 - **Node.js** (v18+) → [Download](https://nodejs.org/)
@@ -46,10 +46,10 @@ cd frontend
 npm install
 npm run start
 ```
-📌 Electron will open, loading Vite’s frontend.
+ Electron will open, loading Vite’s frontend.
 
 
-## **⚙️ Configuration**
+## ** Configuration**
 1️⃣ Backend Environment Variables (backend/src/main/resources/application.properties)
 ```
 etsy.api.key=YOUR_ETSY_API_KEY
@@ -63,7 +63,7 @@ VITE_API_BASE_URL=http://localhost:8080
 VITE_ETSY_SHOP_ID=YOUR_SHOP_ID
 ```
 
-## **🚀 Usage**
+## ** Usage**
 
 1️⃣ Launch Electron App <br>
 2️⃣ Upload Design Files → Choose images to process<br>
@@ -73,7 +73,7 @@ VITE_ETSY_SHOP_ID=YOUR_SHOP_ID
 6️⃣ Track Sales & Analytics → View dashboard stats<br>
 
 
-## **📦 Deployment**
+## ** Deployment**
 1. Build Electron App for macOS
 ```
 cd frontend
@@ -90,7 +90,7 @@ mvn clean package
 java -jar target/backend-1.0.0.jar
 ```
 
-## **📖 API Reference**
+## ** API Reference**
 ### **Backend APIs**
 | **Endpoint**               | **Method** | **Description**                               |
 |----------------------------|-----------|-----------------------------------------------|
@@ -111,7 +111,7 @@ const uploadImage = async (filePath) => {
     return response.data;
 };
 ```
-## **❓ Troubleshooting**
+## ** Troubleshooting**
 
 ### **Frontend Issues**
 🔹 **Electron App is Blank**  
@@ -167,24 +167,24 @@ If errors persist, try reinstalling everything
 rm -rf node_modules package-lock.json
 npm install
 ```
-🚀 Now your Etsy Automation App should work smoothly! 🔥
+Now your Etsy Automation App should work smoothly! 🔥
 
-## 🛠️ Technologies Used
+##  Technologies Used
 	•	🖥️ Frontend: React, Electron, Vite
 	•	🚀 Backend: Spring Boot (Java), Maven
 	•	🛒 Etsy API: Automated product listing
 	•	☁️ Google Drive API: Cloud storage
 	•	🖼️ Photopea API: Mockup generation
 
-## 📌 Future Features
+##  Future Features
 📌 Batch Listing Creation – List multiple products at once <br>
 📌 Automated Price & SEO Optimization – Improve Etsy rankings <br>
 📌 Multi-Shop Support – Manage multiple Etsy stores from one app <br>
 📌 Auto-Reply & Customer Support – Handle customer messages <br>
 
-## **🔥 Summary**
+## ** Summary**
 ✅ **Detailed README covering features, setup, API reference, troubleshooting.**  
 ✅ **Includes deployment instructions for Electron & Spring Boot.**  
 ✅ **Developer-friendly structure for easy onboarding.**  
 
-🚀 **Would you like a guide on packaging your Electron app into a `.dmg` file for macOS?** Let me know! 😃🔥
+**Would you like a guide on packaging your Electron app into a `.dmg` file for macOS?** Let me know! 😃🔥
