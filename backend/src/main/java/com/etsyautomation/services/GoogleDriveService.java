@@ -12,10 +12,13 @@ import com.google.auth.oauth2.GoogleCredentials;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +28,7 @@ public class GoogleDriveService {
 
     private static final String APPLICATION_NAME = "Etsy Image Uploader";
     private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String GOOGLE_DRIVE_FOLDER_ID = "1Oy_rsIerRNCdSugpJQUFbC1B0TIk4Ou3"; // Replace with your folder ID
+    private static final String GOOGLE_DRIVE_FOLDER_ID = "1Oy_rsIerRNCdSugpJQUFbC1B0TIk4Ou3";
 
     private final Drive driveService;
 
@@ -34,10 +37,23 @@ public class GoogleDriveService {
     }
 
     private Drive initializeDriveService() throws GeneralSecurityException, IOException {
-        // ✅ Debug: Check if credentials file is loaded and non-empty
-        InputStream credentialsStream = new ClassPathResource("credentials.json").getInputStream();
-        System.out.println("✅ Loaded credentials.json: " + credentialsStream.available() + " bytes");
+        System.out.println("PROJECT_ID: " + System.getenv("PROJECT_ID"));
+        System.out.println("PRIVATE_KEY_ID: " + System.getenv("PRIVATE_KEY_ID"));
+        System.out.println("PRIVATE_KEY: " + System.getenv("PRIVATE_KEY"));
+        System.out.println("CLIENT_EMAIL: " + System.getenv("CLIENT_EMAIL"));
+        System.out.println("CLIENT_ID: " + System.getenv("CLIENT_ID"));
 
+        String jsonTemplate = Files.readString(Paths.get("src/main/resources/credentials.json"));
+        jsonTemplate = jsonTemplate
+                .replace("${PROJECT_ID}", System.getenv("PROJECT_ID"))
+                .replace("${PRIVATE_KEY_ID}", System.getenv("PRIVATE_KEY_ID"))
+                .replace("${PRIVATE_KEY}", System.getenv("PRIVATE_KEY").replace("\\n", "\n"))
+                .replace("${CLIENT_EMAIL}", System.getenv("CLIENT_EMAIL"))
+                .replace("${CLIENT_ID}", System.getenv("CLIENT_ID"));
+
+        System.out.println("Ersetzte Credentials: " + jsonTemplate);
+
+        ByteArrayInputStream credentialsStream = new ByteArrayInputStream(jsonTemplate.getBytes(StandardCharsets.UTF_8));
         GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream)
                 .createScoped(Collections.singletonList(DriveScopes.DRIVE));
 
