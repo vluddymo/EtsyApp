@@ -37,17 +37,11 @@ public class GoogleDriveService {
     }
 
     private Drive initializeDriveService() throws GeneralSecurityException, IOException {
-        System.out.println("PROJECT_ID: " + System.getenv("PROJECT_ID"));
-        System.out.println("PRIVATE_KEY_ID: " + System.getenv("PRIVATE_KEY_ID"));
-        System.out.println("PRIVATE_KEY: " + System.getenv("PRIVATE_KEY"));
-        System.out.println("CLIENT_EMAIL: " + System.getenv("CLIENT_EMAIL"));
-        System.out.println("CLIENT_ID: " + System.getenv("CLIENT_ID"));
-
         String jsonTemplate = Files.readString(Paths.get("src/main/resources/credentials.json"));
         jsonTemplate = jsonTemplate
                 .replace("${PROJECT_ID}", System.getenv("PROJECT_ID"))
                 .replace("${PRIVATE_KEY_ID}", System.getenv("PRIVATE_KEY_ID"))
-                .replace("${PRIVATE_KEY}", System.getenv("PRIVATE_KEY").replace("\\n", "\n"))
+                .replace("${PRIVATE_KEY}", System.getenv("PRIVATE_KEY").replace("\\n", "\\n"))
                 .replace("${CLIENT_EMAIL}", System.getenv("CLIENT_EMAIL"))
                 .replace("${CLIENT_ID}", System.getenv("CLIENT_ID"));
 
@@ -88,14 +82,30 @@ public class GoogleDriveService {
         }
     }
 
-    public void uploadFiles(List<String> filenames) {
-        for (String filename : filenames) {
-            java.io.File fileToUpload = new java.io.File(System.getProperty("user.home") + "/Desktop/EtsyProcessed/" + "coolPigletAndShapes/" +filename);
-            System.out.println(fileToUpload.getAbsolutePath());
-            if (fileToUpload.exists()) {
-                uploadFile(fileToUpload);
-            } else {
-                throw new RuntimeException("File not found: " + filename);
+    public void uploadFiles(List<java.io.File> filenames) {
+        for (java.io.File filePath: filenames) {
+            try {
+                System.out.println("📤 Starting upload for: " + filePath.getAbsolutePath());
+
+                File fileMetadata = new File();
+                fileMetadata.setName(filePath.getName());
+                fileMetadata.setParents(Collections.singletonList(GOOGLE_DRIVE_FOLDER_ID));
+
+                String mimeType = Files.probeContentType(filePath.toPath());
+                System.out.println("📦 Detected MIME type: " + mimeType);
+
+                FileContent mediaContent = new FileContent(mimeType != null ? mimeType : "application/octet-stream", filePath);
+
+                File uploadedFile = driveService.files().create(fileMetadata, mediaContent)
+                        .setFields("id, name, webViewLink")
+                        .execute();
+
+                System.out.println("✅ Uploaded file ID: " + uploadedFile.getId());
+                System.out.println("🔗 View: " + uploadedFile.getWebViewLink());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException("❌ Failed to upload file: " + filePath.getAbsolutePath() + " → " + GOOGLE_DRIVE_FOLDER_ID, e);
             }
         }
     }
