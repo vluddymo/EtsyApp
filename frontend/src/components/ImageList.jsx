@@ -4,6 +4,7 @@ import axios from "axios";
 export default function ImageList() {
     const [images, setImages] = useState([]);
     const [selectedImages, setSelectedImages] = useState({}); // Track selected images
+    const [imagePaths, setImagePaths] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/images/list")
@@ -12,53 +13,37 @@ export default function ImageList() {
     }, []);
 
     // Toggle selection of an image
-    const handleCheckboxChange = (filename) => {
+    const handleCheckboxChange = (img) => {
         setSelectedImages(prevState => ({
             ...prevState,
-            [filename]: !prevState[filename]
+            [img.filename]: !prevState[img.filename],
+            "path": [img.path],
         }));
+        setImagePaths(prevState => ([
+            ...prevState, img.absolutePath
+        ]))
+        console.table(selectedImages)
     };
 
-    // Upload selected images to Google Drive
     const handleUploadToGoogleDrive = async () => {
-        const selectedFiles = Object.keys(selectedImages).filter(filename => selectedImages[filename]);
-
-        if (selectedFiles.length === 0) {
+        const selectedPreviews = Object.keys(imagePaths).filter(path => imagePaths[path]);
+        console.table(selectedPreviews);
+        if (selectedPreviews.length === 0) {
             alert("No images selected for upload!");
             return;
         }
 
-        const formData = new FormData();
-
-        for (const filename of selectedFiles) {
-            const imageMeta = images.find(img => img.filename === filename);
-            if (imageMeta) {
-                try {
-                    const response = await fetch(`http://localhost:8080${imageMeta.path}`);
-                    const blob = await response.blob();
-                    const file = new File([blob], filename, { type: blob.type });
-                    formData.append("files", file);
-                } catch (err) {
-                    console.error(`⚠️ Failed to fetch file ${filename}`, err);
-                }
+        try {
+            const response = await axios.post("http://localhost:8080/api/images/upload", imagePaths, {
+                headers: {
+                "Content-Type": "application/json"
             }
-        }
+        });
 
-        if (formData.has("files")) {
-            try {
-                const response = await axios.post("http://localhost:8080/api/images/upload", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
-
-                alert(response.data.message || "✅ Images uploaded successfully!");
-            } catch (error) {
-                console.error("❌ Error uploading images:", error);
-                alert("❌ Upload failed. Please try again.");
-            }
-        } else {
-            alert("❌ No valid files found to upload.");
+            alert(response.data.message || "✅ Folders uploaded successfully!");
+        } catch (error) {
+            console.error("❌ Error uploading folders:", error);
+            alert("❌ Upload failed. Please try again.");
         }
     };
 
@@ -74,7 +59,7 @@ export default function ImageList() {
                                 <input
                                     type="checkbox"
                                     checked={!!selectedImages[img.filename]}
-                                    onChange={() => handleCheckboxChange(img.filename)}
+                                    onChange={() => handleCheckboxChange(img)}
                                     className="mb-2"
                                 />
                                 <img

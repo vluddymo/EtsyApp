@@ -6,16 +6,14 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -56,17 +54,13 @@ public class GoogleDriveService {
                 .build();
     }
 
-    public void uploadFile(java.io.File filePath) {
+    public void uploadFile(java.io.File filePath, String parentFolderId) {
         try {
-            System.out.println("📤 Starting upload for: " + filePath.getAbsolutePath());
-
             File fileMetadata = new File();
             fileMetadata.setName(filePath.getName());
-            fileMetadata.setParents(Collections.singletonList(GOOGLE_DRIVE_FOLDER_ID));
+            fileMetadata.setParents(Collections.singletonList(parentFolderId));
 
             String mimeType = Files.probeContentType(filePath.toPath());
-            System.out.println("📦 Detected MIME type: " + mimeType);
-
             FileContent mediaContent = new FileContent(mimeType != null ? mimeType : "application/octet-stream", filePath);
 
             File uploadedFile = driveService.files().create(fileMetadata, mediaContent)
@@ -77,8 +71,7 @@ public class GoogleDriveService {
             System.out.println("🔗 View: " + uploadedFile.getWebViewLink());
 
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("❌ Failed to upload file: " + filePath.getAbsolutePath() + " → " + GOOGLE_DRIVE_FOLDER_ID, e);
+            throw new RuntimeException("❌ Failed to upload file: " + filePath.getAbsolutePath(), e);
         }
     }
 
@@ -109,4 +102,29 @@ public class GoogleDriveService {
             }
         }
     }
+    public String createOrGetDriveFolder(String folderName) throws IOException {
+        String query = String.format("mimeType='application/vnd.google-apps.folder' and name='%s' and trashed=false and '%s' in parents", folderName, GOOGLE_DRIVE_FOLDER_ID);
+
+        FileList result = driveService.files().list()
+                .setQ(query)
+                .setFields("files(id, name)")
+                .execute();
+
+        List<File> folders = result.getFiles();
+        if (folders != null && !folders.isEmpty()) {
+            return folders.get(0).getId(); // folder already exists
+        }
+
+        File metadata = new File();
+        metadata.setName(folderName);
+        metadata.setMimeType("application/vnd.google-apps.folder");
+        metadata.setParents(Collections.singletonList(GOOGLE_DRIVE_FOLDER_ID));
+
+        File folder = driveService.files().create(metadata)
+                .setFields("id")
+                .execute();
+
+        return folder.getId(); // return new folder ID
+    }
+
 }
