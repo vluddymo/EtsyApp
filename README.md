@@ -46,7 +46,7 @@ cd frontend
 npm install
 npm run start
 ```
-Electron will open, loading Vite’s frontend.
+ Electron will open, loading Vite’s frontend.
 
 
 ## Configuration
@@ -167,7 +167,7 @@ If errors persist, try reinstalling everything
 rm -rf node_modules package-lock.json
 npm install
 ```
-Now your Etsy Automation App should work smoothly!
+Now your Etsy Automation App should work smoothly! 
 
 ##  Technologies Used
 	•	🖥️ Frontend: React, Electron, Vite
@@ -185,6 +185,6 @@ Now your Etsy Automation App should work smoothly!
 ## ** Summary**
 ✅ **Detailed README covering features, setup, API reference, troubleshooting.**  
 ✅ **Includes deployment instructions for Electron & Spring Boot.**  
-✅ **Developer-friendly structure for easy onboarding.**
+✅ **Developer-friendly structure for easy onboarding.**  
 
 **Would you like a guide on packaging your Electron app into a `.dmg` file for macOS?** Let me know!
